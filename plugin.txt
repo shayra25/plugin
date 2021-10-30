@@ -1,0 +1,31 @@
+<?php
+/**
+ 
+Plugin Name: my-first-plugin
+Plugin URI: https://prachi.com/
+Description: Used by millions, my-first-plugin is quite possibly the best way in the world to <strong>protect your blog from spam</strong>. It keeps your site protected even while you sleep. To get started: activate the my-first-plugin plugin and then go to your my-first-plugin Settings page to set up your API key.
+Version: 4.1.12
+Author: Beginner
+Author URI: https://Beginner.com/wordpress-plugins/
+License: GPLv2
+License URI:https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: prachi
+Domain Path: /languages
+*/
+
+function pluginprefix_setup_post_type() {
+    register_post_type( 'book', ['public' => true ] ); 
+} 
+add_action( 'init', 'pluginprefix_setup_post_type' );
+ 
+ 
+/**
+ * Activate the plugin.
+ */
+function pluginprefix_activate() { 
+    // Trigger our function that registers the custom post type plugin.
+    pluginprefix_setup_post_type(); 
+    // Clear the permalinks after the post type has been registered.
+    flush_rewrite_rules(); 
+}
+register_activation_hook( __FILE__, 'pluginprefix_activate' )
